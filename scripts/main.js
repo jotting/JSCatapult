@@ -1,3 +1,5 @@
+var scale = 30;
+
 requirejs(["world", "castleTest", "box2d"], 
 function (world, castleTest) {
 var iteration = 0;
@@ -5,7 +7,7 @@ var iteration = 0;
 
 	var debugDraw = new b2DebugDraw();
 	debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-	debugDraw.SetDrawScale(30.0);
+	debugDraw.SetDrawScale(scale);
 	debugDraw.SetFillAlpha(0.5);
 	debugDraw.SetLineThickness(1.0);
 	debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);

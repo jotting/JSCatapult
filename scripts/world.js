@@ -22,8 +22,8 @@ define(["box2d"], function() {
 	var canvas = document.getElementById("canvas");
 	bodyDef.type = b2Body.b2_staticBody;
 	fixDef.shape = new b2PolygonShape;
-	fixDef.shape.SetAsBox(canvas.width / 30, 1);
-	bodyDef.position.Set(0, canvas.height / 30);
+	fixDef.shape.SetAsBox(canvas.width / scale, 1);
+	bodyDef.position.Set(0, canvas.height / scale);
 	world.CreateBody(bodyDef).CreateFixture(fixDef);
 
 	return world;

@@ -1,19 +1,11 @@
-define(["world"], function (world) {
-	
-	  return { 
+define(["world"], function (world) { return { 
+
 	  makeBox: function(x,y,width,height)
 	  {
-	  var   b2Vec2 = Box2D.Common.Math.b2Vec2
-         	,	b2BodyDef = Box2D.Dynamics.b2BodyDef
+	  var   b2BodyDef = Box2D.Dynamics.b2BodyDef
          	,	b2Body = Box2D.Dynamics.b2Body
          	,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
-         	,	b2Fixture = Box2D.Dynamics.b2Fixture
-         	,	b2World = Box2D.Dynamics.b2World
-         	,	b2MassData = Box2D.Collision.Shapes.b2MassData
-         	,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
-         	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
-         	,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
-            ;
+         	,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 	  
 	    var fixDef = new b2FixtureDef;
          fixDef.density = 1.0;
@@ -34,19 +26,14 @@ define(["world"], function (world) {
 		bodyDef.position.y = y;
 		world.CreateBody(bodyDef).CreateFixture(fixDef);
 	  },
+
 	  addShape: function()
 	  {
-	     var   b2Vec2 = Box2D.Common.Math.b2Vec2
-         	,	b2BodyDef = Box2D.Dynamics.b2BodyDef
+	     var b2BodyDef = Box2D.Dynamics.b2BodyDef
          	,	b2Body = Box2D.Dynamics.b2Body
          	,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
-         	,	b2Fixture = Box2D.Dynamics.b2Fixture
-         	,	b2World = Box2D.Dynamics.b2World
-         	,	b2MassData = Box2D.Collision.Shapes.b2MassData
          	,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
-         	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
-         	,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
-            ;
+         	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
 	  
 	    var fixDef = new b2FixtureDef;
          fixDef.density = 1.0;
@@ -72,6 +59,35 @@ define(["world"], function (world) {
 		world.CreateBody(bodyDef).CreateFixture(fixDef);
 	  },
 
+		addTriangle: function(x, y) {
+				var   b2Vec2 = Box2D.Common.Math.b2Vec2
+								, b2BodyDef = Box2D.Dynamics.b2BodyDef
+								,	b2Body = Box2D.Dynamics.b2Body
+								,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+								,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+
+				var fixDef = new b2FixtureDef;
+				fixDef.density = 1.0;
+				fixDef.friction = 0.5;
+				fixDef.restitution = 0.2;
+
+				var bodyDef = new b2BodyDef;
+				bodyDef.type = b2Body.b2_dynamicBody;
+				bodyDef.angle=1.57;
+
+				fixDef.shape = new b2PolygonShape;
+
+				fixDef.shape.SetAsArray([
+								new b2Vec2(-0.25, 0),
+								new b2Vec2(0, -1),
+								new b2Vec2(0.25, 0)],3
+				);
+
+				bodyDef.position.x = x;
+				bodyDef.position.y = y;
+				world.CreateBody(bodyDef).CreateFixture(fixDef);
+ 		},
+
 		makeWall: function(x, y, height, xsize, ysize) {
 				for (var i=0; i < height; i++) {
 								this.makeBox(x , y - ysize - 2*ysize*i, xsize, ysize);
@@ -79,8 +95,8 @@ define(["world"], function (world) {
 		}, 
 		init: function() {
 				var canvas = document.getElementById("canvas");
-				var x = canvas.width / 30;
-				var y = canvas.height / 30;
+				var x = canvas.width / scale;
+				var y = canvas.height / scale;
 
 				var size = 0.5;
 				var height = 6;
@@ -93,6 +109,8 @@ define(["world"], function (world) {
 				var roofY = y - 1 - size - 2 * height * size; // Ground - Height
 				var roofWidth = size * (width + 1)
 				this.makeBox(roofX, roofY, roofWidth, size);
+
+				this.makeWall(roofX, roofY - 1, 4, size / 2, size);
 		} 
 		};
 });
