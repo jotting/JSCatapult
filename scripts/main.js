@@ -21,7 +21,7 @@ var iteration = 0;
 	window.setInterval(update, 1000 / 60);
 
  function update() {
-		world.Step(1 / 60, 10, 10);
+		world.Step(1 / 60, 1, 1);
 		world.DrawDebugData();
 		world.ClearForces();
  };
