@@ -70,5 +70,29 @@ define(["world"], function (world) {
 		bodyDef.position.x = Math.random() * 10;
 		bodyDef.position.y = Math.random() * 10;
 		world.CreateBody(bodyDef).CreateFixture(fixDef);
-	  }};
+	  },
+
+		makeWall: function(x, y, height, xsize, ysize) {
+				for (var i=0; i < height; i++) {
+								this.makeBox(x , y - ysize - 2*ysize*i, xsize, ysize);
+				}
+		}, 
+		init: function() {
+				var canvas = document.getElementById("canvas");
+				var x = canvas.width / 30;
+				var y = canvas.height / 30;
+
+				var size = 0.5;
+				var height = 6;
+				var width = 4;
+
+				this.makeWall(x - 1, y - 1, height, size, size);
+				this.makeWall(x - 1 - 2 * size * width, y - 1, height, size, size);
+
+				var roofX = x - 1 - size * width; // Halfway between walls
+				var roofY = y - 1 - size - 2 * height * size; // Ground - Height
+				var roofWidth = size * (width + 1)
+				this.makeBox(roofX, roofY, roofWidth, size);
+		} 
+		};
 });
