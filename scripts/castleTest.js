@@ -92,7 +92,42 @@ define(["world"], function (world) { return {
 				for (var i=0; i < height; i++) {
 								this.makeBox(x , y - ysize - 2*ysize*i, xsize, ysize);
 				}
-		}, 
+		},
+		shoot: function() {
+	     var   b2Vec2 = Box2D.Common.Math.b2Vec2
+         	,	b2BodyDef = Box2D.Dynamics.b2BodyDef
+         	,	b2Body = Box2D.Dynamics.b2Body
+         	,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+         	,	b2Fixture = Box2D.Dynamics.b2Fixture
+         	,	b2World = Box2D.Dynamics.b2World
+         	,	b2MassData = Box2D.Collision.Shapes.b2MassData
+         	,	b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
+         	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
+         	,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
+            ;
+	  
+	    var fixDef = new b2FixtureDef;
+         fixDef.density = 1.0;
+         fixDef.friction = 0.5;
+         fixDef.restitution = 0.2;
+	  
+	    var bodyDef = new b2BodyDef;
+		bodyDef.type = b2Body.b2_dynamicBody;
+	 
+	 
+		   
+		   fixDef.shape = new b2CircleShape(
+			 0.2 //radius
+		   );
+		
+		bodyDef.position.x = 5;
+		bodyDef.position.y = 5;
+		var zzy = world.CreateBody(bodyDef);
+		zzy.CreateFixture(fixDef);
+	  
+	    var force=new b2Vec2(2500,800);
+		zzy.ApplyForce(force,zzy.GetWorldCenter());
+		},
 		init: function() {
 				var canvas = document.getElementById("canvas");
 				var x = canvas.width / scale;
@@ -111,6 +146,6 @@ define(["world"], function (world) { return {
 				this.makeBox(roofX, roofY, roofWidth, size);
 
 				this.makeWall(roofX, roofY - 1, 4, size / 2, size);
-		} 
+		}
 		};
 });

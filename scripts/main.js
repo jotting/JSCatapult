@@ -6,7 +6,8 @@ var iteration = 0;
  var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
 	var debugDraw = new b2DebugDraw();
-	debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+	var canvas = document.getElementById("canvas");
+	debugDraw.SetSprite(canvas.getContext("2d"));
 	debugDraw.SetDrawScale(scale);
 	debugDraw.SetFillAlpha(0.5);
 	debugDraw.SetLineThickness(1.0);
@@ -14,6 +15,8 @@ var iteration = 0;
 	world.SetDebugDraw(debugDraw);
 
 	castleTest.init();
+
+	canvas.addEventListener('click', castleTest.shoot, false);
 
 	window.setInterval(update, 1000 / 60);
 
