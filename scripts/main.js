@@ -1,5 +1,9 @@
 requirejs(["world", "castleTest", "box2d"], 
+
+
+
 function (world, castleTest) {
+var iteration = 0;
  var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
 	var debugDraw = new b2DebugDraw();
@@ -16,5 +20,11 @@ function (world, castleTest) {
 		world.Step(1 / 60, 10, 10);
 		world.DrawDebugData();
 		world.ClearForces();
+		
+		iteration++;
+		if(iteration % 50 == 0)
+		{
+			castleTest.addShape();
+		}
  };
 });
