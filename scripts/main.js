@@ -1,5 +1,4 @@
 var scale = 30;
-
 requirejs(["world", "castleTest", "box2d"], 
 function (world, castleTest) {
 var iteration = 0;
